@@ -9,7 +9,7 @@ namespace ArrPeeGee.World
     {
         public static List<Tile> tiles = new List<Tile>
         {
-            new Tile("stone", true, 1.0),
+            new Tile("stone", false, 1.0),
         };
 
         public static void Render(SpriteBatch _spriteBatch, Map map, int mapWidth)

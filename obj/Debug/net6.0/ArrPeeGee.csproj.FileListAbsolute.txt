@@ -29,3 +29,5 @@ C:\Users\Jimmy\source\repos\ArrPeeGee\ArrPeeGee\bin\Debug\net6.0\Newtonsoft.Json
 C:\Users\Jimmy\source\repos\ArrPeeGee\ArrPeeGee\bin\Debug\net6.0\Content\stone.xnb
 C:\Users\Jimmy\source\repos\ArrPeeGee\ArrPeeGee\bin\Debug\net6.0\Content\character.xnb
 C:\Users\Jimmy\source\repos\ArrPeeGee\ArrPeeGee\bin\Debug\net6.0\Content\dirt.xnb
+C:\Users\Jimmy\source\repos\ArrPeeGee\ArrPeeGee\obj\Debug\net6.0\ArrPeeGee.sourcelink.json
+C:\Users\Jimmy\source\repos\ArrPeeGee\ArrPeeGee\bin\Debug\net6.0\Content\block.xnb

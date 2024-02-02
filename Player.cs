@@ -13,12 +13,25 @@ namespace ArrPeeGee
         Left, 
         Right
     }
+    public enum MotionStates
+    {
+        WalkingUp,
+        WalkingDown,
+        WalkingLeft,
+        WalkingRight,
+        StandingUp,
+        StandingDown,
+        StandingLeft,
+        StandingRight,
+    }
     internal static class Player
     {
         public static string TextureName = "character";
-        public static Texture2D Texture {  get; set; }
+        public static Texture2D Texture { get; set; }
         public static Vector2 Position { get; set; }
         public static float speed = 200f;
+        public static Vector2 hitbox = new Vector2(16, 30);
+        public static MotionStates Motion { get; set; } = MotionStates.StandingDown;
         public static void Render(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Begin();
@@ -42,87 +55,88 @@ namespace ArrPeeGee
 
             if (keyState.IsKeyDown(Keys.Up))
             {
-                
-                position.Y -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                
+                if (HandleCollisionDetection(CollisionDirections.Up, gameTime, map))
+                {
+
+                    position.Y -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
             }
 
             if (keyState.IsKeyDown(Keys.Down))
             {
-                position.Y += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (HandleCollisionDetection(CollisionDirections.Down, gameTime, map))
+                {
+                    position.Y += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+               
             }
 
             if (keyState.IsKeyDown(Keys.Left))
             {
-                position.X -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (HandleCollisionDetection(CollisionDirections.Left, gameTime, map)) 
+                {
+                    position.X -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
             }
 
             if (keyState.IsKeyDown(Keys.Right))
             {
-                position.X += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (HandleCollisionDetection(CollisionDirections.Right, gameTime, map))
+                {
+                    position.X += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
             }
 
             Position = position;
         }
 
-        public static void HandleCollisionDetection(CollisionDirections direction, GameTime gameTime, Map map)
+        public static bool HandleCollisionDetection(CollisionDirections direction, GameTime gameTime, Map map)
         {
             Vector2 nextPosition = Position;
+            int padding = 1;
 
-            switch(direction)
+            Rectangle characterBoundingBox = new Rectangle(
+                (int)(nextPosition.X - hitbox.X / 2),
+                (int)(nextPosition.Y),
+                (int)hitbox.X,
+                (int)(hitbox.Y / 2)
+            );
+
+            switch (direction)
             {
                 case CollisionDirections.Up:
-                    nextPosition.Y -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds + Texture.Height / 2;
+                    characterBoundingBox.Y -= (int)(speed * (float)gameTime.ElapsedGameTime.TotalSeconds + padding);
                     break;
                 case CollisionDirections.Down:
-                    nextPosition.Y += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    characterBoundingBox.Y += (int)(speed * (float)gameTime.ElapsedGameTime.TotalSeconds + padding);
                     break;
                 case CollisionDirections.Left:
-                    nextPosition.X -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    characterBoundingBox.X -= (int)(speed * (float)gameTime.ElapsedGameTime.TotalSeconds + padding);
                     break;
                 case CollisionDirections.Right:
-                    nextPosition.X += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    characterBoundingBox.X += (int)(speed * (float)gameTime.ElapsedGameTime.TotalSeconds + padding);
                     break;
             }
 
-            //Tile adjacentTile = null;
-            Console.WriteLine("nextPosition: " + nextPosition);
-
-            /*
-            foreach (Tile tile in Foreground.tiles[map.ForegroundTileMap])
+            foreach (Tile tile in map.ForegroundTiles)
             {
-                
-                if (nextPosition.X < tile.Position.X + tile.Texture.Width && Position.X > tile.Position.X)
-                {
-                    Console.WriteLine("Found a tile within the same X coordinate");
+                Rectangle tileBoundingBox = new Rectangle(
+                    (int)tile.Position.X,
+                    (int)tile.Position.Y,
+                    tile.Texture.Width,
+                    tile.Texture.Height
+                );
 
-                    if (nextPosition.Y < tile.Position.Y + tile.Texture.Height && Position.Y > tile.Position.Y)
+                if (characterBoundingBox.Intersects(tileBoundingBox))
+                {
+                    if (!tile.IsTraversable)
                     {
-                        Console.WriteLine("Next tile is within the same Y coordinate");
-                        adjacentTile = tile;
-                        break;
+                        return false; 
                     }
                 }
             }
 
-
-            if (adjacentTile == null)
-            {
-                return false;
-            }
-
-            if (adjacentTile.IsTraversable)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
-            */
+            return true;
         }
-            
-
-
     }
-
 }
