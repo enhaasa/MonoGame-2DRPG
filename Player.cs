@@ -55,30 +55,6 @@ namespace ArrPeeGee
                         break;
                 }
             }
-
-
-
-            /*
-
-
-            if (keyState.IsKeyUp(Keys.Up))
-            {
-                Character.Idle(Character.Direction.Up);
-            }
-            if (keyState.IsKeyUp(Keys.Down))
-            {
-                Character.Idle(Character.Direction.Down);
-            }
-            if (keyState.IsKeyUp(Keys.Left))
-            {
-                Character.Idle(Character.Direction.Left);
-            }
-            if (keyState.IsKeyUp(Keys.Right))
-            {
-                Character.Idle(Character.Direction.Right);
-            }
-            */
-
         }
     }
 }

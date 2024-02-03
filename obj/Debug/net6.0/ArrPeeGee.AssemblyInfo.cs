@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArrPeeGee")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+785e67f9d9ababa7acce9a626d51dd98af41400b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5fbcab587a8afb1d471139ac56234015c8bc924b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArrPeeGee")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArrPeeGee")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

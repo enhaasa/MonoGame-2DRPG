@@ -11,10 +11,5 @@ namespace ArrPeeGee.World
         {
             new Tile("stone", false, 1.0),
         };
-
-        public static void Render(SpriteBatch _spriteBatch, Map map, int mapWidth)
-        {
-           
-        }
     }
 }

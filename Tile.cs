@@ -20,6 +20,5 @@ namespace ArrPeeGee
 
         readonly public int width = 32;
         readonly public int height = 32;
-
     }
 }
