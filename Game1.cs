@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.IO;
 using ArrPeeGee.World;
 using System;
+using ArrPeeGee.Entities;
 
 namespace ArrPeeGee
 {
@@ -30,16 +31,12 @@ namespace ArrPeeGee
             _graphics.PreferredBackBufferHeight = 640;
             _graphics.ApplyChanges();
 
-            Player.Position = new Vector2(100, 100);
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            Player.Texture = Content.Load<Texture2D>(Player.TextureName);
 
             string mapsPath = "../../../Maps/";
 
@@ -48,11 +45,11 @@ namespace ArrPeeGee
 
             List<Tile> backgroundTiles = World.World.GetTiles(Content, Background.tiles, map1.BackgroundTileMap, 20);
             List<Tile> foregroundTiles = World.World.GetTiles(Content, Foreground.tiles, map1.ForegroundTileMap, 20);
-
             map1.BackgroundTiles = backgroundTiles;
             map1.ForegroundTiles = foregroundTiles;
-
             maps.Add(map1);
+
+            Player.Character = new Character(_spriteBatch, Content.Load<Texture2D>("character"), new Vector2(100, 100));
         }
 
         protected override void Update(GameTime gameTime)
@@ -73,7 +70,8 @@ namespace ArrPeeGee
 
             World.World.Render(_spriteBatch, maps[currentMapIndex].BackgroundTiles);
             World.World.Render(_spriteBatch, maps[currentMapIndex].ForegroundTiles);
-            Player.Render(_spriteBatch);
+
+            Player.Character.Render(gameTime);
 
             base.Draw(gameTime);
         }
